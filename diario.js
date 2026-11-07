@@ -55,13 +55,35 @@
     const datas = Object.keys(registros).filter(d => registros[d].manha.trim() || registros[d].noite.trim()).sort().reverse();
     $('listaHistorico').replaceChildren();
     $('vazio').hidden = datas.length > 0;
-    $('contagem').textContent = `${datas.length} ${datas.length === 1 ? 'dia com registro' : 'dias com registros'}`;
+    $('contagem').textContent = `${datas.length} ${datas.length === 1 ? 'dia com anotações' : 'dias com anotações'}`;
     for (const data of datas) {
-      const li = document.createElement('li'), botao = document.createElement('button'), titulo = document.createElement('span'), detalhe = document.createElement('small');
+      const li = document.createElement('li'), titulo = document.createElement('h3'), assunto = document.createElement('p');
+      li.className = 'anotacao';
       titulo.textContent = formatar(data);
-      detalhe.textContent = [registros[data].manha.trim() && 'Começo do dia',registros[data].noite.trim() && 'Fim do dia'].filter(Boolean).join(' · ');
-      botao.append(titulo,detalhe); li.append(botao); $('listaHistorico').append(li);
-      botao.onclick = () => { guardar(); selecionada = data; momento = registros[data].manha.trim() ? 'manha' : 'noite'; abrirPagina(); mostrar(); $('titulo').scrollIntoView({block:'center'}); };
+      const pensamento = window.conteudosDiario[Number(data.slice(-2))-1];
+      assunto.className = 'assunto-anotacao';
+      assunto.textContent = pensamento.titulo;
+      li.append(titulo,assunto);
+      for (const [periodo,nome] of [['manha','Começo do dia'],['noite','Fim do dia']]) {
+        const texto = registros[data][periodo];
+        if (!texto.trim()) continue;
+        const bloco = document.createElement('section'), rotulo = document.createElement('h4'), pergunta = document.createElement('p'), resposta = document.createElement('p'), editar = document.createElement('button');
+        bloco.className = 'momento-anotacao';
+        rotulo.textContent = nome;
+        pergunta.className = 'pergunta-anotacao';
+        pergunta.textContent = pensamento[periodo];
+        resposta.className = 'resposta-anotacao';
+        resposta.textContent = texto;
+        editar.textContent = 'Editar resposta';
+        editar.setAttribute('aria-label', `Editar resposta de ${nome.toLocaleLowerCase('pt-BR')}, ${formatar(data)}`);
+        editar.onclick = () => {
+          guardar(); selecionada = data; momento = periodo; abrirPagina(); mostrar();
+          $('escrita').scrollIntoView({block:'start'});
+        };
+        bloco.append(rotulo,pergunta,resposta,editar);
+        li.append(bloco);
+      }
+      $('listaHistorico').append(li);
     }
   }
   function abrirPagina() { $('historico').hidden = true; $('pagina').hidden = false; $('hoje').classList.add('ativo'); $('verHistorico').classList.remove('ativo'); }
