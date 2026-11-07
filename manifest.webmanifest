@@ -1,0 +1,13 @@
+{
+  "id": "./",
+  "name": "AINDA · Diário de prática",
+  "short_name": "Diário",
+  "description": "Uma reflexão, um gesto e um espaço seu todos os dias.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f2ea",
+  "theme_color": "#f5f2ea",
+  "icons": [{"src":"icone.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]
+}
