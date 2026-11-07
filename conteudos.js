@@ -62,7 +62,7 @@ const conteudos = [
     "texto": "Você fez algo errado. Isso não quer dizer que tudo em você está errado. Olhe para o que aconteceu, veja o que pode consertar e escolha um próximo passo. Tratar a si mesmo com respeito ajuda a aprender.",
     "pratica": "Escreva um erro sem se ofender. Depois, anote como pode corrigir.",
     "manha": "O que posso corrigir sem me tratar mal?",
-    "noite": "O que aprendi com um erro?"
+    "noite": "O que consegui fazer para corrigir meu erro?"
   },
   {
     "dia": 8,
