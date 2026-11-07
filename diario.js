@@ -24,24 +24,24 @@
     registro[momento] = $('resposta').value;
     registros[selecionada] = registro;
     // Em caso de dados ilegíveis, preserva o original até que o usuário exporte sua escrita.
-    if (!disponivel) { aviso('Armazenamento indisponível ou ilegível. Use Exportar para guardar sua escrita nesta sessão.'); return false; }
+    if (!disponivel) { aviso('Não foi possível salvar neste navegador. Toque em Baixar meu diário para guardar uma cópia.'); return false; }
     try {
       localStorage.setItem(chave, JSON.stringify(registros));
       alterado = false;
-      aviso('Reflexão guardada neste navegador.');
+      aviso('Sua resposta foi salva neste navegador.');
       return true;
-    } catch { disponivel = false; aviso('Não foi possível guardar. Use Exportar antes de sair.'); return false; }
+    } catch { disponivel = false; aviso('Não foi possível salvar. Toque em Baixar meu diário antes de sair.'); return false; }
   }
   function mostrar() {
     const c = conteudo();
     $('data').value = selecionada;
-    $('tema').textContent = `REFLEXÃO ${String(c.dia).padStart(2,'0')} / 31 · ${c.tema.toLocaleUpperCase('pt-BR')}`;
+    $('tema').textContent = `PENSAMENTO ${String(c.dia).padStart(2,'0')} DE 31 · ${c.tema.toLocaleUpperCase('pt-BR')}`;
     $('titulo').textContent = c.titulo;
     $('reflexao').textContent = c.texto;
     $('pratica').textContent = c.pratica;
-    $('ciclo').textContent = '31 ideias · um novo olhar a cada mês';
+    $('ciclo').textContent = 'Um pensamento para cada dia do mês';
     $('pergunta').textContent = c[momento];
-    $('rotuloMomento').textContent = momento === 'manha' ? 'INTENÇÃO' : 'REVISÃO DO DIA';
+    $('rotuloMomento').textContent = momento === 'manha' ? 'PARA COMEÇAR O DIA' : 'PARA PENSAR NO SEU DIA';
     $('resposta').value = registros[selecionada]?.[momento] || '';
     $('caracteres').textContent = `${$('resposta').value.length} caracteres`;
     for (const [id, valor] of [['abaManha','manha'],['abaNoite','noite']]) {
@@ -49,7 +49,7 @@
       $(id).setAttribute('aria-pressed',String(momento === valor));
     }
     alterado = false;
-    aviso(disponivel ? '' : 'Armazenamento indisponível ou ilegível. Exporte uma cópia antes de sair.');
+    aviso(disponivel ? '' : 'Não foi possível salvar neste navegador. Toque em Baixar meu diário antes de sair.');
   }
   function historico() {
     const datas = Object.keys(registros).filter(d => registros[d].manha.trim() || registros[d].noite.trim()).sort().reverse();
@@ -59,28 +59,48 @@
     for (const data of datas) {
       const li = document.createElement('li'), botao = document.createElement('button'), titulo = document.createElement('span'), detalhe = document.createElement('small');
       titulo.textContent = formatar(data);
-      detalhe.textContent = [registros[data].manha.trim() && 'Manhã',registros[data].noite.trim() && 'Noite'].filter(Boolean).join(' · ');
+      detalhe.textContent = [registros[data].manha.trim() && 'Começo do dia',registros[data].noite.trim() && 'Fim do dia'].filter(Boolean).join(' · ');
       botao.append(titulo,detalhe); li.append(botao); $('listaHistorico').append(li);
       botao.onclick = () => { guardar(); selecionada = data; momento = registros[data].manha.trim() ? 'manha' : 'noite'; abrirPagina(); mostrar(); $('titulo').scrollIntoView({block:'center'}); };
     }
   }
   function abrirPagina() { $('historico').hidden = true; $('pagina').hidden = false; $('hoje').classList.add('ativo'); $('verHistorico').classList.remove('ativo'); }
-  $('salvar').onclick = () => { if (!alterado) aviso(disponivel ? 'Nenhuma alteração para guardar.' : 'Use Exportar para guardar uma cópia.'); else guardar(); };
+  $('salvar').onclick = () => { if (!alterado) aviso(disponivel ? 'Suas respostas já estão salvas.' : 'Toque em Baixar meu diário para guardar uma cópia.'); else guardar(); };
   $('resposta').addEventListener('input', () => { alterado = true; $('caracteres').textContent = `${$('resposta').value.length} caracteres`; guardar(); });
   for (const [id, valor] of [['abaManha','manha'],['abaNoite','noite']]) $(id).onclick = () => { guardar(); momento = valor; mostrar(); };
   $('data').onchange = () => { const nova = $('data').value; if (!nova || !$('data').validity.valid) { $('data').value = selecionada; return; } guardar(); selecionada = nova; mostrar(); };
   $('hoje').onclick = () => { guardar(); selecionada = dataLocal(); abrirPagina(); mostrar(); };
   $('verHistorico').onclick = () => { guardar(); historico(); $('historico').hidden = false; $('pagina').hidden = true; $('hoje').classList.remove('ativo'); $('verHistorico').classList.add('ativo'); };
-  $('exportar').onclick = () => {
+  let fontePdf;
+  $('exportar').onclick = async () => {
     guardar();
-    const texto = JSON.stringify({produto:'AINDA · Diário de prática',versao:1,exportadoEm:new Date().toISOString(),registros},null,2);
-    const url = URL.createObjectURL(new Blob([texto],{type:'application/json;charset=utf-8'}));
-    const link = document.createElement('a'); link.href = url; link.download = `ainda-diario-${dataLocal()}.json`; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url),1000);
+    const botao = $('exportar'), mensagem = $('mensagemDownload');
+    const copia = JSON.parse(JSON.stringify(registros));
+    if (!Object.values(copia).some(r => r.manha.trim() || r.noite.trim())) {
+      mensagem.textContent = 'Escreva uma resposta para começar. Depois você pode baixar seu diário em PDF.';
+      return;
+    }
+    botao.disabled = true; botao.setAttribute('aria-busy','true'); mensagem.textContent = 'Preparando seu PDF…';
+    try {
+      if (!fontePdf) {
+        const resposta = await fetch('NotoSans-Regular.ttf');
+        if (!resposta.ok) throw new Error('Fonte indisponível');
+        const bytes = new Uint8Array(await resposta.arrayBuffer());
+        let binario = '';
+        for (let i=0;i<bytes.length;i+=8192) binario += String.fromCharCode(...bytes.subarray(i,i+8192));
+        fontePdf = btoa(binario);
+      }
+      const pdf = window.criarPdfDiario(window.jspdf.jsPDF,fontePdf,copia,window.conteudosDiario);
+      await pdf.save(`meu-diario-${dataLocal()}.pdf`,{returnPromise:true});
+      mensagem.textContent = 'Seu PDF está pronto. Se ele abrir na tela, use Compartilhar ou Salvar para guardar uma cópia.';
+    } catch {
+      mensagem.textContent = 'Não foi possível criar o PDF. Confira sua conexão e tente de novo. Suas respostas continuam no diário.';
+    } finally { botao.disabled = false; botao.setAttribute('aria-busy','false'); }
   };
   window.addEventListener('beforeunload', event => { if (alterado && !guardar()) { event.preventDefault(); event.returnValue = ''; } });
   // Celulares podem encerrar uma aba sem emitir beforeunload.
   window.addEventListener('pagehide', guardar);
   // Não substitui silenciosamente registros quando outro separador os atualiza.
-  window.addEventListener('storage', event => { if (event.key === chave) { disponivel = false; aviso('O diário mudou em outra aba. Exporte sua escrita e recarregue antes de continuar.'); } });
+  window.addEventListener('storage', event => { if (event.key === chave) { disponivel = false; aviso('O diário mudou em outra aba. Toque em Baixar meu diário e depois atualize esta página.'); } });
   mostrar();
 })();

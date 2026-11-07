@@ -1,39 +1,285 @@
-/* Textos autorais desta coleção. Sem citações ou adaptação de passagens do livro. */
-(function (root) {
-  const linhas = [
-    ['O tamanho da sua parte','Discernimento','Nem tudo que ocupa sua atenção aceita sua intervenção. A resposta de alguém, o trânsito e o resultado final não obedecem à sua vontade. Sua parte começa no cuidado com aquilo que você faz a seguir. Uma ação pequena e possível vale mais que uma discussão interminável com a realidade.','Divida uma preocupação em duas partes: o que você pode fazer e o que precisa deixar em aberto.','Qual ação depende de mim hoje?','Onde gastei energia tentando decidir pelos outros?'],
-    ['Antes de dar um nome','Percepção','Um acontecimento chega; logo depois, chega uma história sobre ele. Uma mensagem sem resposta pode virar rejeição antes mesmo de você conhecer o motivo. Dê algum espaço entre observar e concluir. A primeira interpretação não precisa receber a última palavra.','Reescreva uma situação incômoda usando apenas fatos que uma câmera poderia registrar.','Que conclusão posso manter em suspenso?','O que mudou quando separei fato de interpretação?'],
-    ['Uma pausa também age','Autodomínio','A pressa de responder costuma vestir a roupa da coragem. Mas esperar alguns instantes pode exigir mais firmeza que devolver uma ofensa. A pausa não apaga o que você sente: permite escolher o que fazer com esse sentimento.','Antes de uma resposta difícil, respire e releia o que pretende dizer.','Em que conversa quero levar mais cuidado?','Houve uma resposta que a pausa tornou melhor?'],
-    ['Faça caber no dia','Ação','Um plano pode ser tão grande que se torna um esconderijo. Enquanto você organiza o começo perfeito, a tarefa continua intocada. Reduza a entrada: uma página, uma ligação, cinco minutos. Começar pequeno não diminui a importância do que você escolheu.','Reserve cinco minutos para iniciar uma tarefa adiada.','Qual é a menor versão possível do meu próximo passo?','Que começo real aconteceu hoje?'],
-    ['O suficiente tem forma','Moderação','Querer mais não é um erro automático. O problema aparece quando você nunca decide o que seria suficiente. Sem um limite escolhido, até uma conquista pode parecer insuficiente no instante em que chega. Dê uma medida concreta ao que procura hoje.','Defina um ponto de parada para uma atividade ou compra.','Como vou reconhecer que já fiz o suficiente?','Consegui respeitar algum limite que escolhi?'],
-    ['Escutar sem preparar defesa','Convivência','Enquanto alguém fala, é fácil construir a própria resposta e perder a pessoa no caminho. Escutar não exige concordar. Exige oferecer atenção suficiente para entender o que de fato está sendo dito, antes de disputar o sentido da conversa.','Faça uma pergunta de esclarecimento antes de defender sua posição.','Quem merece minha atenção inteira hoje?','O que ouvi que minha primeira impressão não alcançava?'],
-    ['Um erro sem sobrenome','Aprendizado','Errar em uma tarefa não define tudo o que você é. Ao transformar um erro em identidade, você perde a precisão necessária para corrigi-lo. Descreva a ação, reconheça o impacto e escolha um reparo. Responsabilidade cresce quando a descrição fica mais exata.','Troque uma acusação contra si por uma descrição e um próximo passo.','O que posso corrigir sem me atacar?','Qual reparo ficou possível quando fui mais preciso?'],
-    ['O trabalho que ninguém vê','Integridade','Boa parte do caráter se constrói longe de qualquer plateia. Cumprir um combinado pequeno, reconhecer um crédito e cuidar de um detalhe são maneiras discretas de escolher quem você deseja ser. O reconhecimento pode vir ou não; a escolha já aconteceu.','Cumpra um compromisso que não renderá aplausos.','Que atitude vale a pena mesmo sem reconhecimento?','Em que momento minha conduta combinou com meus valores?'],
-    ['Mudar o caminho','Flexibilidade','Persistir não exige repetir um método que deixou de servir. Você pode manter uma intenção e trocar a rota. Quando surge um obstáculo, pergunte o que ainda é possível com os recursos de agora. Ajustar o caminho também pode ser uma forma de compromisso.','Encontre uma alternativa simples para um plano impedido.','O que quero preservar, mesmo que o plano mude?','Que ajuste me ajudou a continuar?'],
-    ['A medida da comparação','Discernimento','Você vê um recorte da vida alheia e conhece os bastidores da sua. Essa comparação já começa desigual. Use o que admira como informação sobre seus interesses, sem transformar outra pessoa em régua para o seu valor.','Converta uma comparação em uma habilidade que você deseja praticar.','O que a admiração está me mostrando?','Consegui aprender sem diminuir minha própria caminhada?'],
-    ['Dizer não com respeito','Limites','Aceitar tudo pode parecer generosidade até faltar presença para os compromissos já assumidos. Um limite claro ajuda os outros a saber com o que podem contar. Você pode recusar um pedido sem diminuir a importância de quem o fez.','Formule uma recusa breve, honesta e respeitosa onde houver necessidade.','A que preciso dizer não para cuidar de um sim?','Fui claro sobre minha disponibilidade?'],
-    ['Voltar ao que está aqui','Presença','Antecipar o futuro ajuda a planejar; morar nele deixa o presente sem cuidado. Quando perceber que está ensaiando cenários sem fim, procure a tarefa e as pessoas que estão diante de você. Há uma diferença entre preparar o amanhã e abandonar o hoje.','Passe dez minutos em uma atividade sem alternar para outra tela.','O que pede minha presença agora?','Quando consegui voltar ao que estava fazendo?'],
-    ['Coragem em voz baixa','Coragem','Nem toda coragem aparece em um grande gesto. Às vezes ela está em admitir uma dúvida, pedir ajuda ou começar uma conversa desconfortável. O medo pode acompanhar a ação sem escolher a direção. Você não precisa esperar uma sensação de segurança completa.','Dê um passo responsável em algo que o receio vem adiando.','Que desconforto posso atravessar por uma boa razão?','O que fiz mesmo sem me sentir inteiramente pronto?'],
-    ['Cuidar do instrumento','Cuidado','Seu corpo participa de cada decisão que você toma. Cansaço e fome não são falhas de caráter; são condições que merecem atenção. Uma vida orientada por valores também precisa de descanso, alimento e limites possíveis.','Escolha um cuidado básico que esteja ao seu alcance hoje.','De que cuidado concreto preciso?','Como meu estado físico influenciou minhas reações?'],
-    ['Reconhecer o recebido','Gratidão','Muitas coisas que sustentam seu dia chegaram pelo trabalho de alguém. Percebê-las não obriga você a negar problemas. Apenas amplia o quadro: junto do que falta, há apoios que merecem ser vistos e pessoas que merecem ouvir um agradecimento específico.','Agradeça a alguém por uma contribuição concreta.','O que está me sustentando e costuma passar despercebido?','Qual apoio consegui reconhecer hoje?'],
-    ['Menos certeza, mais exame','Humildade','Uma opinião pode parecer parte de você depois de ser repetida muitas vezes. Ainda assim, ela pode estar incompleta. Rever uma posição à luz de novos fatos não apaga sua história; mostra que seu compromisso com aprender permanece vivo.','Procure uma informação que possa desafiar uma opinião sua.','Sobre o que posso estar enganado?','Que dúvida útil apareceu hoje?'],
-    ['Desejo com intervalo','Moderação','Entre querer alguma coisa e agir existe um intervalo que você pode cultivar. Às vezes o desejo permanece e faz sentido. Em outras, ele passa quando recebe tempo. Esperar um pouco ajuda a distinguir uma escolha de um impulso.','Adie uma compra ou resposta não urgente e observe o que muda.','O que desejo agora e por quê?','Esse desejo continuou importante depois da pausa?'],
-    ['A pessoa além do incômodo','Justiça','O comportamento de alguém pode precisar de limite sem que a pessoa inteira seja reduzida a ele. Ser justo exige olhar para o impacto e também examinar os critérios que você está usando. Firmeza e respeito podem fazer parte da mesma resposta.','Descreva um conflito sem usar rótulos sobre a outra pessoa.','Que limite seria firme e justo nesta situação?','Julguei com os mesmos critérios que pediria para mim?'],
-    ['Tempo não se guarda','Prioridades','Você pode guardar objetos para depois; o tempo de hoje não entra em uma gaveta. Isso não exige preencher cada minuto. Convida a escolher com mais cuidado, inclusive quando a melhor escolha é descansar ou estar com alguém sem produzir nada.','Proteja um pequeno período para algo que considera essencial.','O que merece uma parte real do meu tempo?','Meu dia abriu espaço para o que considero importante?'],
-    ['Reparar é um verbo','Responsabilidade','Uma boa intenção não elimina o efeito de uma ação. Quando você percebe que feriu alguém, explicar pode ajudar, mas não substitui reconhecer o impacto. Um reparo começa com escuta e precisa respeitar o tempo e a resposta da outra pessoa.','Reconheça uma falha concreta e ofereça um reparo possível, se houver abertura.','Existe algo pelo qual preciso assumir responsabilidade?','Que diferença houve entre justificar e reparar?'],
-    ['Preparar sem adivinhar','Prudência','Pensar no que pode dar errado serve para preparar respostas, não para garantir que nada acontecerá. Escolha um risco plausível, faça o que estiver ao seu alcance e encerre o exercício. Planejar também inclui aceitar que alguma incerteza continuará.','Prepare uma alternativa para um imprevisto provável.','Qual preparação útil posso fazer e concluir?','Meu planejamento trouxe ação ou apenas repetição de receios?'],
-    ['O valor da tarefa comum','Serviço','Lavar, organizar, responder e consertar sustentam a vida em comum. Uma tarefa não precisa parecer grandiosa para merecer atenção. Fazer bem o que cabe a você pode aliviar uma carga que outra pessoa carregaria em silêncio.','Cuide de uma tarefa compartilhada sem esperar que alguém peça.','Que trabalho discreto pode melhorar o dia de alguém?','Como minha participação afetou o ambiente ao redor?'],
-    ['Deixar a emoção informar','Autoconhecimento','Uma emoção pode sinalizar perda, necessidade ou limite. Ela merece escuta, mas não precisa se tornar uma ordem imediata. Dar um nome ao que você sente ajuda a escolher uma resposta que respeite tanto a experiência quanto suas consequências.','Nomeie uma emoção e escreva qual necessidade pode estar ligada a ela.','O que estou sentindo, sem me julgar por sentir?','Que resposta escolhi depois de reconhecer a emoção?'],
-    ['Continuar depois da falha','Constância','Uma interrupção não precisa virar abandono. O hábito de voltar pode ser mais útil que a fantasia de nunca falhar. Retome com a medida que cabe hoje e examine o que atrapalhou, para que o recomeço tenha apoio concreto.','Retome por poucos minutos um hábito importante que ficou parado.','Qual retorno cabe no meu dia de hoje?','O que facilitou ou dificultou minha retomada?'],
-    ['Conforto e escolha','Liberdade','O conforto pode descansar você; também pode começar a decidir por você. Observe quando evitar um pequeno incômodo impede uma ação importante. Não é preciso buscar sofrimento: basta perceber quais comodidades estão cobrando um preço alto demais.','Escolha um esforço pequeno e seguro em favor de algo importante.','Que comodidade está limitando uma escolha minha?','O desconforto foi tão grande quanto eu previa?'],
-    ['Uma conversa por inteiro','Atenção','Estar perto de alguém não garante estar disponível. A atenção é feita de escolhas concretas: guardar a tela, escutar a resposta e não apressar o silêncio. Uma conversa breve pode ter profundidade quando a outra pessoa encontra espaço para existir.','Ofereça alguns minutos de conversa sem distrações, se a pessoa desejar.','Como posso demonstrar presença a alguém?','Em qual encontro estive de fato disponível?'],
-    ['O resultado não conta tudo','Ação','Você pode agir com cuidado e ainda encontrar um resultado difícil. Pode também acertar por acaso depois de agir sem atenção. Para aprender, examine o processo junto do desfecho: informação disponível, intenção, esforço e efeito sobre os outros.','Avalie uma decisão pelos critérios usados, além do resultado.','Que critérios vão orientar uma escolha de hoje?','O que manteria ou mudaria no meu modo de decidir?'],
-    ['Abrir espaço ao diferente','Convivência','Conviver coloca você diante de ritmos e prioridades que não são os seus. Algumas diferenças pedem acordos; outras podem simplesmente existir. Antes de exigir mudança, pergunte se há um prejuízo real ou apenas uma preferência sua contrariada.','Em um incômodo cotidiano, diferencie necessidade de preferência.','Que diferença posso acolher sem abrir mão de um limite importante?','Onde consegui negociar em vez de impor?'],
-    ['Soltar uma versão antiga','Mudança','Uma escolha que fez sentido antes pode ter deixado de servir. Reconhecer isso não torna seu passado inútil. Você pode honrar o que aprendeu sem carregar todos os compromissos antigos para sempre. Mudar pede honestidade com as condições de agora.','Reavalie um compromisso e identifique se ele precisa de ajuste.','O que continuo fazendo apenas porque já fazia?','Que mudança parece mais honesta com minha vida atual?'],
-    ['Memória do que importa','Finitude','A vida muda, e os encontros não se repetem exatamente como foram. Lembrar disso pode ajudar a cuidar melhor das relações e das escolhas de hoje. Não é uma cobrança por intensidade: é um convite à presença possível, inclusive nos dias comuns.','Dê atenção a uma relação ou atividade que você não quer tratar como garantida.','O que gostaria de ter cuidado melhor se este dia não voltasse?','A que dei valor por meio de uma ação concreta?'],
-    ['Fechar sem encerrar','Revisão','Um ciclo termina sem que você esteja pronto em todas as áreas. A revisão serve para enxergar, não para emitir uma sentença sobre si. Reconheça um avanço, escolha algo a ajustar e leve uma pergunta adiante. Continuar aprendendo já é uma direção.','Anote um aprendizado do mês e um ajuste pequeno para o próximo.','O que quero levar comigo para o próximo ciclo?','Que aprendizado deste mês merece virar prática?']
-  ];
-  const conteudos = linhas.map(([titulo,tema,texto,pratica,manha,noite], i) => ({dia:i+1,titulo,tema,texto,pratica,manha,noite}));
-  if (typeof module !== 'undefined') module.exports = conteudos;
-  else root.conteudosDiario = conteudos;
-})(typeof window !== 'undefined' ? window : globalThis);
+/* Textos originais em linguagem simples. */
+(function(root){
+const conteudos = [
+  {
+    "dia": 1,
+    "titulo": "Faça a sua parte",
+    "tema": "Suas escolhas",
+    "texto": "Você não pode decidir tudo. Não pode escolher o que outra pessoa pensa ou faz. Mas pode escolher como agir agora. Cuide da parte que está nas suas mãos, mesmo que seja pequena.",
+    "pratica": "Escolha uma preocupação e escreva uma coisa que você pode fazer a respeito.",
+    "manha": "O que eu posso fazer hoje?",
+    "noite": "Com o que me preocupei sem poder mudar?"
+  },
+  {
+    "dia": 2,
+    "titulo": "Olhe antes de concluir",
+    "tema": "Atenção",
+    "texto": "Uma pessoa demorou para responder. Isso quer dizer que ela está brava? Talvez não. Às vezes a gente imagina uma explicação antes de saber o que aconteceu. Espere um pouco e procure entender.",
+    "pratica": "Pense em algo que incomodou você. Separe o que aconteceu do que você imaginou.",
+    "manha": "O que eu preciso entender melhor?",
+    "noite": "Tirei alguma conclusão cedo demais?"
+  },
+  {
+    "dia": 3,
+    "titulo": "Pare um pouco antes de responder",
+    "tema": "Calma",
+    "texto": "Quando estamos com raiva, podemos falar algo que machuca. Parar um pouco não é fugir da conversa. É dar tempo para escolher melhor as palavras.",
+    "pratica": "Antes de responder a algo difícil, respire e leia sua mensagem de novo.",
+    "manha": "Em qual conversa quero ter mais calma?",
+    "noite": "Consegui pensar antes de responder?"
+  },
+  {
+    "dia": 4,
+    "titulo": "Comece com pouco",
+    "tema": "Primeiro passo",
+    "texto": "Uma tarefa grande pode dar vontade de desistir antes de começar. Você não precisa fazer tudo de uma vez. Cinco minutos já podem ajudar a sair do lugar.",
+    "pratica": "Faça por cinco minutos algo que você vem deixando para depois.",
+    "manha": "Qual pequeno passo posso dar hoje?",
+    "noite": "O que consegui começar?"
+  },
+  {
+    "dia": 5,
+    "titulo": "Saiba quando parar",
+    "tema": "Equilíbrio",
+    "texto": "Sempre vai existir algo a mais para fazer ou comprar. Por isso, ajuda escolher um limite. Descansar depois de fazer o necessário também faz parte do cuidado com a vida.",
+    "pratica": "Escolha uma tarefa e decida quando vai parar.",
+    "manha": "O que será suficiente por hoje?",
+    "noite": "Respeitei algum limite que escolhi?"
+  },
+  {
+    "dia": 6,
+    "titulo": "Ouça até o fim",
+    "tema": "Conversa",
+    "texto": "Às vezes a gente prepara uma resposta enquanto a outra pessoa ainda fala. Assim, pode deixar de ouvir algo importante. Escutar não é concordar com tudo. É tentar entender antes de responder.",
+    "pratica": "Deixe alguém terminar de falar. Depois, faça uma pergunta para entender melhor.",
+    "manha": "Quem eu quero ouvir com atenção?",
+    "noite": "O que entendi melhor depois de escutar?"
+  },
+  {
+    "dia": 7,
+    "titulo": "Um erro não define você",
+    "tema": "Aprender",
+    "texto": "Você fez algo errado. Isso não quer dizer que tudo em você está errado. Olhe para o que aconteceu, veja o que pode consertar e escolha um próximo passo. Tratar a si mesmo com respeito ajuda a aprender.",
+    "pratica": "Escreva um erro sem se ofender. Depois, anote como pode corrigir.",
+    "manha": "O que posso corrigir sem me tratar mal?",
+    "noite": "O que aprendi com um erro?"
+  },
+  {
+    "dia": 8,
+    "titulo": "Faça o certo mesmo sem elogios",
+    "tema": "Honestidade",
+    "texto": "Algumas boas atitudes passam despercebidas. Cumprir um combinado ou reconhecer a ajuda de alguém pode não trazer elogios. Mesmo assim, essas escolhas mostram como você quer viver.",
+    "pratica": "Cumpra um pequeno combinado, mesmo que ninguém perceba.",
+    "manha": "Que coisa boa posso fazer sem esperar elogios?",
+    "noite": "Fiz algo de acordo com o que acredito?"
+  },
+  {
+    "dia": 9,
+    "titulo": "Tente outro caminho",
+    "tema": "Mudança de planos",
+    "texto": "Seu plano pode não dar certo. Isso não significa que você precisa desistir do que importa. Veja o que ainda é possível e tente um caminho diferente.",
+    "pratica": "Pense em outra maneira de fazer algo que ficou difícil.",
+    "manha": "O que posso fazer de outro jeito?",
+    "noite": "Que mudança me ajudou hoje?"
+  },
+  {
+    "dia": 10,
+    "titulo": "Não se meça pela vida dos outros",
+    "tema": "Seu caminho",
+    "texto": "Você vê uma parte da vida dos outros. Da sua, conhece também as dificuldades. Comparar essas duas coisas pode ser injusto com você. Procure aprender com alguém sem diminuir o seu próprio caminho.",
+    "pratica": "Pense em algo que admira em alguém e escolha uma coisa que pode aprender.",
+    "manha": "O que gostaria de aprender?",
+    "noite": "Consegui olhar para mim com mais respeito?"
+  },
+  {
+    "dia": 11,
+    "titulo": "Você pode dizer não",
+    "tema": "Seus limites",
+    "texto": "Dizer sim a tudo pode deixar você sem tempo e sem energia. Uma recusa clara e respeitosa ajuda a cuidar dos compromissos que já tem. Você não precisa tratar mal ninguém para colocar um limite.",
+    "pratica": "Se precisar recusar um pedido, explique de forma curta e educada.",
+    "manha": "A que preciso dizer não hoje?",
+    "noite": "Consegui falar com clareza sobre meus limites?"
+  },
+  {
+    "dia": 12,
+    "titulo": "Volte para este momento",
+    "tema": "Presença",
+    "texto": "Pensar no amanhã ajuda a fazer planos. Mas pensar sem parar pode tirar sua atenção do que está acontecendo agora. Volte para a tarefa ou para a pessoa que está diante de você.",
+    "pratica": "Faça uma coisa por dez minutos sem olhar outra tela.",
+    "manha": "O que precisa da minha atenção agora?",
+    "noite": "Em que momento consegui estar mais presente?"
+  },
+  {
+    "dia": 13,
+    "titulo": "Dê um passo com medo mesmo",
+    "tema": "Coragem",
+    "texto": "Você não precisa se sentir totalmente seguro para dar um passo importante. Às vezes coragem é pedir ajuda, fazer uma pergunta ou ter uma conversa difícil. Escolha um passo que seja possível e seguro.",
+    "pratica": "Faça uma pequena coisa importante que o medo vem adiando.",
+    "manha": "Que passo posso dar, mesmo com receio?",
+    "noite": "O que consegui fazer apesar do medo?"
+  },
+  {
+    "dia": 14,
+    "titulo": "Cuide do básico",
+    "tema": "Seu corpo",
+    "texto": "Fome, cansaço e sono podem mudar a forma como você reage. Isso não é falta de força. Seu corpo precisa de cuidado. Descansar e se alimentar também ajudam você a fazer boas escolhas.",
+    "pratica": "Escolha um cuidado possível: beber água, comer, descansar ou fazer uma pausa.",
+    "manha": "De que cuidado preciso hoje?",
+    "noite": "Como meu corpo estava e como isso afetou meu dia?"
+  },
+  {
+    "dia": 15,
+    "titulo": "Perceba quem ajuda você",
+    "tema": "Agradecer",
+    "texto": "Muita coisa no seu dia acontece com a ajuda de alguém. Perceber isso não apaga os problemas. Apenas lembra que você também recebe cuidado. Um agradecimento pode mostrar que você viu essa ajuda.",
+    "pratica": "Agradeça a alguém e diga pelo que está agradecendo.",
+    "manha": "Que ajuda costumo receber sem perceber?",
+    "noite": "A quem consegui agradecer hoje?"
+  },
+  {
+    "dia": 16,
+    "titulo": "Você pode mudar de ideia",
+    "tema": "Aprender",
+    "texto": "Uma opinião pode parecer certa só porque você a repete há muito tempo. Ouvir algo novo pode ajudar a ver o que faltava. Mudar de ideia depois de aprender não é vergonha.",
+    "pratica": "Ouça uma explicação diferente da sua antes de decidir.",
+    "manha": "Sobre o que posso estar enganado?",
+    "noite": "Aprendi algo que mudou minha opinião?"
+  },
+  {
+    "dia": 17,
+    "titulo": "Espere antes de agir",
+    "tema": "Seus desejos",
+    "texto": "Querer alguma coisa não significa que você precisa agir na mesma hora. Dê um tempo. Talvez a vontade continue e faça sentido. Talvez passe. Essa pausa pode ajudar você a escolher melhor.",
+    "pratica": "Espere um pouco antes de uma compra ou resposta que não seja urgente.",
+    "manha": "O que eu quero e por quê?",
+    "noite": "Minha vontade mudou depois de esperar?"
+  },
+  {
+    "dia": 18,
+    "titulo": "Seja firme sem machucar",
+    "tema": "Respeito",
+    "texto": "Você pode dizer que uma atitude foi ruim sem dizer que a pessoa inteira é ruim. Fale sobre o que aconteceu e sobre o limite que precisa colocar. Respeito e firmeza podem andar juntos.",
+    "pratica": "Ao falar de um problema, descreva a atitude sem ofender a pessoa.",
+    "manha": "Como posso ser firme e respeitoso?",
+    "noite": "Tratei alguém como gostaria de ser tratado?"
+  },
+  {
+    "dia": 19,
+    "titulo": "Dê tempo ao que importa",
+    "tema": "Seu tempo",
+    "texto": "O tempo de hoje não pode ser guardado para amanhã. Você não precisa encher cada minuto de tarefas. Descansar e estar com alguém também podem ser boas escolhas. Veja o que merece espaço no seu dia.",
+    "pratica": "Separe um pouco de tempo para algo importante para você.",
+    "manha": "Para o que quero reservar tempo hoje?",
+    "noite": "Dei atenção ao que mais importa para mim?"
+  },
+  {
+    "dia": 20,
+    "titulo": "Tente consertar",
+    "tema": "Responsabilidade",
+    "texto": "Uma boa intenção não apaga a dor que uma atitude causou. Se você machucou alguém, procure ouvir e reconhecer o que fez. Quando for possível, ofereça uma forma de consertar, sem cobrar uma resposta.",
+    "pratica": "Pense em um erro seu e em algo que pode fazer para reparar.",
+    "manha": "Há algo que preciso tentar consertar?",
+    "noite": "Assumi minha parte sem buscar desculpas?"
+  },
+  {
+    "dia": 21,
+    "titulo": "Faça um plano simples",
+    "tema": "Preparo",
+    "texto": "Pensar no que pode dar errado ajuda quando leva a uma ação. Mas repetir os mesmos medos não prepara você melhor. Escolha um problema provável, pense numa alternativa e siga o dia.",
+    "pratica": "Prepare uma alternativa para um imprevisto que pode acontecer.",
+    "manha": "O que posso preparar hoje?",
+    "noite": "Meu plano ajudou ou só aumentou minha preocupação?"
+  },
+  {
+    "dia": 22,
+    "titulo": "Uma tarefa pequena ajuda",
+    "tema": "Cuidado com os outros",
+    "texto": "Lavar, arrumar e consertar podem parecer coisas pequenas. Mas essas tarefas ajudam a vida de todos. Fazer sua parte pode aliviar o dia de alguém.",
+    "pratica": "Faça uma tarefa da casa ou do trabalho que seja sua responsabilidade.",
+    "manha": "Que tarefa pode tornar o dia de alguém mais leve?",
+    "noite": "Como minha ajuda fez diferença?"
+  },
+  {
+    "dia": 23,
+    "titulo": "Dê nome ao que sente",
+    "tema": "Seus sentimentos",
+    "texto": "Raiva, tristeza e medo fazem parte da vida. Sentir não obriga você a agir na mesma hora. Tente dizer o que está sentindo e do que precisa. Isso pode ajudar a escolher o próximo passo.",
+    "pratica": "Escreva o nome de um sentimento e o que pode estar por trás dele.",
+    "manha": "O que estou sentindo agora?",
+    "noite": "Como cuidei do que estava sentindo?"
+  },
+  {
+    "dia": 24,
+    "titulo": "Você pode voltar",
+    "tema": "Recomeço",
+    "texto": "Ficar um dia sem fazer algo não precisa virar desistência. Você pode retomar aos poucos. Veja o que atrapalhou e escolha um jeito mais fácil de voltar. Recomeçar também é seguir em frente.",
+    "pratica": "Retome por poucos minutos algo importante que ficou parado.",
+    "manha": "O que posso retomar hoje?",
+    "noite": "O que me ajudou a recomeçar?"
+  },
+  {
+    "dia": 25,
+    "titulo": "Nem sempre o mais fácil ajuda",
+    "tema": "Suas escolhas",
+    "texto": "O conforto pode fazer bem. Mas, às vezes, escolher sempre o mais fácil deixa algo importante para trás. Você não precisa buscar sofrimento. Apenas veja se um pequeno esforço pode valer a pena.",
+    "pratica": "Faça um esforço pequeno e seguro por algo que importa para você.",
+    "manha": "Que pequeno esforço vale a pena hoje?",
+    "noite": "Foi tão difícil quanto eu imaginava?"
+  },
+  {
+    "dia": 26,
+    "titulo": "Esteja na conversa",
+    "tema": "Atenção às pessoas",
+    "texto": "Estar perto de alguém não é o mesmo que dar atenção. Guardar o celular e ouvir com calma são formas simples de mostrar cuidado. Mesmo uma conversa curta pode fazer bem.",
+    "pratica": "Se a outra pessoa quiser conversar, escute por alguns minutos sem distrações.",
+    "manha": "Como posso dar mais atenção a alguém?",
+    "noite": "Em qual conversa consegui estar presente?"
+  },
+  {
+    "dia": 27,
+    "titulo": "Olhe também para o seu esforço",
+    "tema": "Suas decisões",
+    "texto": "Você pode agir com cuidado e, mesmo assim, ter um resultado ruim. Também pode dar sorte depois de escolher sem pensar. Para aprender, olhe para o resultado e para o jeito como decidiu.",
+    "pratica": "Pense em uma decisão e no que você sabia quando a tomou.",
+    "manha": "O que preciso levar em conta antes de decidir?",
+    "noite": "O que faria igual e o que faria diferente?"
+  },
+  {
+    "dia": 28,
+    "titulo": "Nem tudo precisa ser do seu jeito",
+    "tema": "Conviver",
+    "texto": "As pessoas têm gostos e ritmos diferentes. Algumas diferenças precisam de conversa. Outras podem apenas existir. Antes de pedir uma mudança, veja se há um problema real ou só uma preferência sua.",
+    "pratica": "Pense em algo que incomodou você. Era uma necessidade ou um gosto pessoal?",
+    "manha": "Que diferença posso respeitar hoje?",
+    "noite": "Consegui fazer um acordo sem impor minha vontade?"
+  },
+  {
+    "dia": 29,
+    "titulo": "Veja o que ainda faz sentido",
+    "tema": "Mudar",
+    "texto": "Algo que ajudou antes pode não ajudar mais. Você pode reconhecer o que aprendeu e escolher outro caminho. Não precisa continuar fazendo tudo do mesmo jeito só porque sempre fez assim.",
+    "pratica": "Escolha um compromisso e pense se ele precisa mudar.",
+    "manha": "O que faço só por costume?",
+    "noite": "Que mudança combina melhor com minha vida hoje?"
+  },
+  {
+    "dia": 30,
+    "titulo": "Cuide do que você valoriza",
+    "tema": "O que importa",
+    "texto": "Pessoas, lugares e momentos mudam. Lembrar disso pode ajudar você a cuidar melhor do que tem hoje. Não é preciso fazer algo grandioso. Uma ligação, uma visita ou um pouco de atenção podem bastar.",
+    "pratica": "Dê atenção a uma pessoa ou atividade importante para você.",
+    "manha": "O que não quero deixar sempre para depois?",
+    "noite": "Que atitude mostrou o que eu valorizo?"
+  },
+  {
+    "dia": 31,
+    "titulo": "Leve um aprendizado com você",
+    "tema": "Fim do mês",
+    "texto": "Você não precisa terminar o mês com tudo resolvido. Olhe para o que aprendeu, reconheça um pequeno avanço e escolha algo para ajustar. O próximo mês pode começar com um passo simples.",
+    "pratica": "Anote um aprendizado e uma coisa que quer tentar no próximo mês.",
+    "manha": "O que quero levar para o próximo mês?",
+    "noite": "O que aprendi e quero colocar em prática?"
+  }
+];
+if(typeof module!=="undefined") module.exports=conteudos; else root.conteudosDiario=conteudos;
+})(typeof window!=="undefined"?window:globalThis);
